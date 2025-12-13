@@ -2,38 +2,22 @@ export function productSectionMobile() {
   const section = document.createElement("section");
   section.className = "block md:hidden px-4 pt-20 pb-10";
 
-
   section.innerHTML = `
     <!-- PRODUCT IMAGE -->
     <div class="w-full aspect-square border rounded mb-3">
-      <img src="./assets/images/m-ing.jpeg" class="w-full h-full object-cover" />
+      <img id="mainProductImage" src="./assets/images/m-ing.jpeg" class="w-full h-full object-cover" />
     </div>
 
     <!-- THUMBNAILS -->
-<div class="grid grid-cols-4 gap-2 mb-4">
-  <img
-    src="./assets/images/upper.svg"
-    class="w-full aspect-square border-[2px] border-[#00000069] rounded object-cover box-border"
-  />
-  <img
-    src="./assets/images/middle.svg"
-    class="w-full aspect-square border-[2px] border-[#00000069] rounded object-cover box-border"
-  />
-  <img
-    src="./assets/images/lower.svg"
-    class="w-full aspect-square border-[2px] border-[#00000069] rounded object-cover box-border"
-  />
-  <img
-    src="./assets/images/m-ing.jpeg"
-    class="w-full aspect-square border-[2px] border-[#00000069] rounded object-cover box-border"
-  />
-</div>
-
+    <div id="thumbnails" class="grid grid-cols-4 gap-2 mb-4">
+      <img src="./assets/change/first.jpg" class="w-full aspect-square border-[2px] border-[#00000069] rounded object-cover box-border" />
+      <img src="./assets/change/secound.png" class="w-full aspect-square border-[2px] border-[#00000069] rounded object-cover box-border" />
+      <img src="./assets/change/third.jpg" class="w-full aspect-square border-[2px] border-[#00000069] rounded object-cover box-border" />
+      <img src="./assets/change/four.jpg" class="w-full aspect-square border-[2px] border-[#00000069] rounded object-cover box-border" />
+    </div>
 
     <!-- CATEGORY -->
-    <p class="uppercase text-xs text-gray-500 mb-1">
-      Black Friday › BF Women
-    </p>
+    <p class="uppercase text-xs text-gray-500 mb-1">Black Friday › BF Women</p>
 
     <!-- TITLE -->
     <h1 class="text-lg font-semibold leading-snug mb-2">
@@ -112,4 +96,14 @@ export function productSectionMobile() {
   `;
 
   document.getElementById("app").appendChild(section);
+
+  // ====== JS FOR THUMBNAIL CLICK ======
+  const mainImage = document.getElementById("mainProductImage");
+  const thumbnails = section.querySelectorAll("#thumbnails img");
+
+  thumbnails.forEach((thumb) => {
+    thumb.addEventListener("click", () => {
+      mainImage.src = thumb.src; // replace main image with clicked thumbnail
+    });
+  });
 }
