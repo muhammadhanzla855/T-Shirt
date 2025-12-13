@@ -13,19 +13,19 @@ export function productSectionMobile() {
 <div class="grid grid-cols-4 gap-2 mb-4">
   <img
     src="./assets/images/upper.svg"
-    class="w-full aspect-square border rounded object-cover"
+    class="w-full aspect-square border-[2px] border-[#00000069] rounded object-cover box-border"
   />
   <img
     src="./assets/images/middle.svg"
-    class="w-full aspect-square border rounded object-cover"
+    class="w-full aspect-square border-[2px] border-[#00000069] rounded object-cover box-border"
   />
   <img
     src="./assets/images/lower.svg"
-    class="w-full aspect-square border rounded object-cover"
+    class="w-full aspect-square border-[2px] border-[#00000069] rounded object-cover box-border"
   />
   <img
     src="./assets/images/m-ing.jpeg"
-    class="w-full aspect-square border rounded object-cover"
+    class="w-full aspect-square border-[2px] border-[#00000069] rounded object-cover box-border"
   />
 </div>
 
@@ -89,7 +89,7 @@ export function productSectionMobile() {
       </div>
 
       <div class="border border-black flex-1 h-[52px] flex items-center justify-center">
-        WISHLIST
+        ADD TO WISHLIST
       </div>
     </div>
 
