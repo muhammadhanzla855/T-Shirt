@@ -1,6 +1,8 @@
 import { productSection } from "./components/ProductSection.js";
-import { productSectionMobile } from "./components/productSectionMobile.js";
 
-productSectionMobile();
+// Single function call that handles both desktop and mobile
 productSection();
 
+import { ProductTabs } from "./components/ProductTabs.js";
+
+ProductTabs();
