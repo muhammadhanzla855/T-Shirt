@@ -1,80 +1,100 @@
 function relatedProductsHTML() {
   return `
-    <div class="space-y-8 mt-20">
-      <h3 class="text-xl font-semibold">You may also like</h3>
+    <div class="mt-20 mx-auto md:w-[1312px]">
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <!-- Heading -->
+      <h3 class="text-xl font-semibold mb-8">
+        You may also like
+      </h3>
 
+      <!-- Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+        <!-- CARD -->
         ${[
           {
-            img: "shoe.png",
-            name: "AKTIV HIGH KORE",
+            img: "./assets/images/shoe.png",
+            title: "AKTIV HIGH KORE",
             price: "10,00 €",
-            old: "17,95 €",
-            tag: "20g ₱",
-            contain: true,
+            cover: "contain"
           },
           {
-            img: "hat.jpg",
-            name: "Cold Hat",
+            img: "./assets/images/hat.jpg",
+            title: "Cold Hat",
             price: "12,50 €",
-            old: "24,50 €",
             review: "☆☆☆☆☆ 1 Review",
-            contain: true,
+            cover: "contain"
           },
           {
-            img: "Orange.png",
-            name: "Visor Taktik White/Orange",
+            img: "./assets/images/Orange.png",
+            title: "Visor Taktik White/Orange",
             price: "9,00 €",
-            old: "19,95 €",
-            tag: "25g ₱",
+            review: "☆☆☆☆☆ 1 Review",
+            cover: "cover"
           },
           {
-            img: "girl.png",
-            name: "Visor Taktik Red",
+            img: "./assets/images/girl.png",
+            title: "Visor Taktik Red",
             price: "8,00 €",
-            old: "19,95 €",
-            tag: "25g ₱",
-          },
-        ]
-          .map(
-            (p) => `
-          <div class="group cursor-pointer">
-            <div class="relative bg-gray-100 rounded-xl overflow-hidden">
-              <img src="./assets/images/${p.img}"
-                class="w-full h-[260px] ${p.contain ? "object-contain" : "object-cover"} group-hover:scale-105 transition"
-                alt="${p.name}" />
-              ${p.tag ? `<span class="absolute bottom-3 left-3 text-xs bg-white px-2 py-1 rounded">${p.tag}</span>` : ""}
+            review: "☆☆☆☆☆ 1 Review",
+            cover: "cover"
+          }
+        ].map(item => `
+          <div class="group cursor-pointer flex flex-col">
+
+            <!-- Image (FIXED SIZE) -->
+            <div class="w-full h-[367px] bg-gray-100 overflow-hidden">
+              <img
+                src="${item.img}"
+                class="w-full h-full object-${item.cover}"
+                alt="${item.title}"
+              />
             </div>
 
-            <div class="mt-3 text-sm">
-              <p class="font-medium">${p.name}</p>
-              <p class="text-gray-500">
-                <span class="font-semibold text-black">${p.price}</span>
-                <span class="line-through ml-1">${p.old}</span>
+            <!-- Content (ALWAYS BELOW IMAGE) -->
+            <div class="px-5 py-5 flex-1">
+              <p class="text-sm font-medium">
+                ${item.title}
               </p>
-              ${p.review ? `<p class="text-xs text-gray-400 mt-1">${p.review}</p>` : ""}
+
+              <p class="text-sm mt-2 font-semibold">
+                ${item.price}
+              </p>
+
+              ${item.review ? `
+                <p class="text-xs text-gray-400 mt-1">
+                  ${item.review}
+                </p>
+              ` : ""}
             </div>
+
           </div>
-        `
-          )
-          .join("")}
+        `).join("")}
 
       </div>
     </div>
   `;
 }
 
+
 function productVideoHTML() {
   return `
-    <div class="relative rounded-2xl overflow-hidden shadow-lg">
-      <img src="./assets/videos/rock.png" class="w-full h-[687px] object-cover" />
-      <button class="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30">
-        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">▶</div>
+    <div class="relative mx-auto w-[996px] h-[485px] rounded-2xl overflow-hidden shadow-lg">
+      <img
+        src="./assets/videos/rock.png"
+        class="w-full h-full object-cover"
+        alt="Product video"
+      />
+
+      <button class="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition">
+        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+          ▶
+        </div>
       </button>
     </div>
   `;
 }
+
 
 export function ProductTabs() {
   const app = document.getElementById("app");
@@ -87,36 +107,56 @@ export function ProductTabs() {
   const section = document.createElement("section");
   section.className = "relative w-full max-w-[1400px] mx-auto px-4 md:px-0";
 
-  section.innerHTML = `
-    <!-- Tabs -->
-    <div class="border-b border-gray-200">
-      <div class="flex gap-8 text-sm font-medium">
-        ${["details", "sizes", "colors", "delivery"]
-          .map(
-            (t, i) => `
-          <button data-tab="${t}"
-            class="tab-btn pb-3 border-b-2 ${
-              i === 0 ? "border-black text-black" : "border-transparent text-gray-500 hover:text-black"
-            } transition-all capitalize">
-            ${t === "details" ? "Product Details" : t}
-          </button>
-        `
-          )
+      section.innerHTML = `
+    <!-- Tabs Container -->
+    <div class="border-b border-gray-200 pb-0">
+      <div class="flex gap-8">
+        ${["details", "colors", "sizes", "delivery"]
+          .map((t, i) => {
+            let label;
+            
+            if (t === "details") {
+              label = "Product Details";
+            } else if (t === "colors") {
+              label = "Colors";
+            } else if (t === "sizes") {
+              label = "Sizes";
+            } else if (t === "delivery") {
+              label = "Price & Delivery Times";
+            }
+            
+            return `
+              <button data-tab="${t}"
+                class="tab-btn py-4 px-1 text-base font-medium whitespace-nowrap ${
+                  i === 0 
+                    ? "text-black border-b-2 border-black font-semibold" 
+                    : "text-gray-600 border-b-2 border-transparent hover:text-gray-800"
+                } transition-all duration-200">
+                ${label}
+              </button>
+            `;
+          })
           .join("")}
       </div>
     </div>
 
-    <div class="mt-10">
+    <div class="mt-12">
 
-      <!-- DETAILS -->
+      <!-- DETAILS TAB -->
       <div id="details" class="tab-content space-y-16">
-        <div class="max-w-[900px]">
-          <h2 class="text-xl font-semibold mb-3">
+        <!-- Product Information Section -->
+        <div class="max-w-[1314px] mx-auto">
+          <!-- Heading -->
+          <h2 class="text-2xl font-bold mb-6 tracking-tight">
             Product information "Falkon Pro Race Jersey"
           </h2>
-          <p class="text-sm text-gray-600 leading-relaxed">
-            Engineered with an identical cut to the Falkon model, this jersey delivers a fitted, comfortable silhouette designed for full freedom of movement. Made from 100% Aerek 80 polyester, it offers exceptional breathability and moisture-wicking performance to keep you dry during intense exertion. The durable fabric resists wear while remaining lightweight and flexible, ensuring comfort throughout every race. Perfect for athletes who demand performance without compromise.
-          </p>
+          
+          <!-- Description -->
+          <div class="bg-white rounded-lg">
+            <p class="text-base text-gray-700 leading-relaxed">
+              Engineered with an identical cut to the Falkon model, this jersey delivers a fitted, comfortable silhouette designed for full freedom of movement. Made from 100% Aerek 80 polyester, it offers exceptional breathability and moisture-wicking performance to keep you dry during intense exertion. The durable fabric resists wear while remaining lightweight and flexible, ensuring comfort throughout every race. Perfect for athletes who demand performance without compromise.
+            </p>
+          </div>
         </div>
 
         ${productVideoHTML()}
